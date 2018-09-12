@@ -1,38 +1,25 @@
 #pragma once
-
-#include "Ball.h"
-#include "Vec2.h"
-#include "RectF.h"
 #include "Colors.h"
+#include "Vec2.h"
 #include "Graphics.h"
+#include "Ball.h"
 #include "Keyboard.h"
 
-class Paddle
+class Paddle 
 {
 public:
-	Paddle( const Vec2& pos_in,float halfWidth_in,float halfHeight_in );
-	void Draw( Graphics& gfx ) const;
-	bool DoBallCollision( Ball& ball );
-	void DoWallCollision( const RectF& walls );
-	void Update( const Keyboard& kbd,float dt );
-	RectF GetRect() const;
-	void ResetCooldown();
+	Paddle(const Vec2& pos, float halfWidth, float halfHeight);
+	void Draw(Graphics& gfx) const;
+	bool DoBallCollision(Ball& ball) const;
+	void DoWallCollision(const Rectf& walls);
+	void Update(const Keyboard& kbd, float dt);
+	Rectf GetRect() const;
 private:
-	static constexpr Color wingColor = { 210,255,210 };
-	static constexpr Color color = { 200,220,200 };
-	static constexpr float wingWidth = 6.0f;
-	static constexpr float speed = 360.0f;
-	// control the paddle rebound behavior here
-	static constexpr float maximumExitRatio = 2.6f;
-	static constexpr float fixedZoneWidthRatio = 0.2f;
-	// ----------------------------------------
-	float halfWidth;
-	float halfHeight;
-	// these are derived from above controls
-	float exitXFactor;
-	float fixedZoneHalfWidth;
-	float fixedZoneExitX;
-	// -------------------------------------
+	static constexpr Color color = Colors::White;
+	static constexpr Color wingColor = Colors::Red;
+	static constexpr float wingWidth = 18.0f;
+	const float halfWidth;
+	const float halfHeight;
 	Vec2 pos;
-	bool isCooldown = false;
+	static constexpr float speed = 300.0f;
 };
