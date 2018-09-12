@@ -10,12 +10,16 @@ Paddle::Paddle(const Vec2 & pos, float halfWidth, float halfHeight)
 
 void Paddle::Draw(Graphics& gfx) const
 {
-	gfx.DrawRect(GetRect(), color);
+	Rectf rect = GetRect();
+	gfx.DrawRect(rect, wingColor);
+	rect.left += wingWidth;
+	rect.right -= wingWidth;
+	gfx.DrawRect(rect, color);
 }
 
 bool Paddle::DoBallCollision(Ball & ball) const
 {
-	if (GetRect().IsOverlapping(ball.GetRect()))
+	if (ball.GetVelocity().y > 0 && GetRect().IsOverlapping(ball.GetRect()))
 	{
 		ball.ReboundY();
 		return true;

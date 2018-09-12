@@ -15,7 +15,9 @@ public:
 	void Update(const Keyboard& kbd, float dt);
 	Rectf GetRect() const;
 private:
-	Color color = Colors::White;
+	static constexpr Color color = Colors::White;
+	static constexpr Color wingColor = Colors::Red;
+	static constexpr float wingWidth = 18.0f;
 	const float halfWidth;
 	const float halfHeight;
 	Vec2 pos;
