@@ -11,7 +11,7 @@ void Brick::Draw(Graphics& gfx) const
 {
 	if (!isDestroyed)
 	{
-		gfx.DrawRect(rect, c);
+		gfx.DrawRect(rect.GetExpanded(-padding), c);
 	}
 }
 
