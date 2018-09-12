@@ -1,50 +1,41 @@
-#include "RectF.h"
+#include "Rectf.h"
 
-RectF::RectF( float left_in,float right_in,float top_in,float bottom_in )
+Rectf::Rectf(float left, float right, float top, float bottom)
 	:
-	left( left_in ),
-	right( right_in ),
-	top( top_in ),
-	bottom( bottom_in )
+	top(top),
+	bottom(bottom),
+	left(left),
+	right(right)
 {
 }
 
-RectF::RectF( const Vec2& topLeft,const Vec2 & bottomRight )
+Rectf::Rectf(const Vec2 & topLeft, const Vec2 & bottomRight)
 	:
-	RectF( topLeft.x,bottomRight.x,topLeft.y,bottomRight.y )
+	Rectf(topLeft.x, bottomRight.x, topLeft.y, bottomRight.y)
 {
 }
 
-RectF::RectF( const Vec2& topLeft,float width,float height )
+Rectf::Rectf(const Vec2 & topLeft, float width, float height)
 	:
-	RectF( topLeft,topLeft + Vec2( width,height ) )
+	Rectf(topLeft, topLeft + Vec2(width, height))
 {
 }
 
-bool RectF::IsOverlappingWith( const RectF& other ) const
+Rectf Rectf::GetExpanded(float offset) const
 {
-	return right > other.left && left < other.right
-		&& bottom > other.top && top < other.bottom;
+	return Rectf(left - offset, right + offset, top - offset, bottom + offset);
 }
 
-bool RectF::IsContainedBy( const RectF & other ) const
+bool Rectf::IsOverlapping(const Rectf & otherRect) const
 {
-	return left >= other.left && right <= other.right &&
-		top >= other.top && bottom <= other.bottom;
+	return bottom >= otherRect.top &&
+		top <= otherRect.bottom &&
+		left <= otherRect.right &&
+		right >= otherRect.left;
 }
 
-RectF RectF::FromCenter( const Vec2 & center,float halfWidth,float halfHeight )
+Rectf Rectf::FromCenter(const Vec2 & center, float halfWidth, float halfHeight)
 {
-	const Vec2 half( halfWidth,halfHeight );
-	return RectF( center - half,center + half );
-}
-
-RectF RectF::GetExpanded( float offset ) const
-{
-	return RectF( left - offset,right + offset,top - offset,bottom + offset );
-}
-
-Vec2 RectF::GetCenter() const
-{
-	return Vec2( (left + right) / 2.0f,(top + bottom) / 2.0f );
+	const Vec2 half(halfWidth, halfHeight);
+	return Rectf(center - half, center + half);
 }
