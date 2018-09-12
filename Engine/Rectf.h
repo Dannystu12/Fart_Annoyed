@@ -5,7 +5,7 @@ class Rectf
 {
 public:
 	Rectf() = default;
-	Rectf(float top, float bottom, float left, float right);
+	Rectf(float left, float right, float top, float bottom);
 	Rectf(const Vec2& topLeft, const Vec2& bottomRight);
 	Rectf(const Vec2& topLeft, float width, float height);
 	bool IsOverlapping(const Rectf& otherRect) const;

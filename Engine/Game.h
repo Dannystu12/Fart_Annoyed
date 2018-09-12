@@ -27,6 +27,8 @@
 #include "FrameTimer.h"
 #include "Rectf.h"
 #include "Sound.h"
+#include "Brick.h"
+
 
 class Game
 {
@@ -50,5 +52,7 @@ private:
 	Rectf walls;
 	FrameTimer ft;
 	Sound soundPad;
+	Brick brick;
+	Sound brickSound;
 	/********************************/
 };
