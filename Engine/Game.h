@@ -28,6 +28,7 @@
 #include "Rectf.h"
 #include "Sound.h"
 #include "Brick.h"
+#include "Paddle.h"
 
 
 class Game
@@ -54,5 +55,6 @@ private:
 	Sound soundPad;
 	Brick brick;
 	Sound brickSound;
+	Paddle paddle;
 	/********************************/
 };
