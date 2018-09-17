@@ -93,12 +93,17 @@ void Game::UpdateModel()
 	
 	if (collisionHasHappened)
 	{
+		paddle.ResetCooldown();
 		bricks[colIndex].ExecuteBallCollision(ball);
 		brickSound.Play();
 	}
 
 	if (paddle.DoBallCollision(ball)) soundPad.Play();
-	if (ball.DoWallCollision(walls)) soundPad.Play();
+
+	if (ball.DoWallCollision(walls)) {
+		paddle.ResetCooldown();
+		soundPad.Play();
+	}
 }
 
 void Game::ComposeFrame()
