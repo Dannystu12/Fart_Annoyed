@@ -24,4 +24,5 @@ private:
 	Vec2 pos;
 	static constexpr float speed = 300.0f;
 	bool cooldown = false;
+	float exitXFactor = 0.045f;
 };
