@@ -20,6 +20,7 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include "SpriteCodex.h"
 
 
 
@@ -31,6 +32,7 @@ Game::Game(MainWindow& wnd)
 	walls(Vec2(0,0), Vec2(gfx.ScreenWidth, gfx.ScreenHeight)),
 	soundPad(L"Sounds\\arkpad.wav"),
 	brickSound(L"Sounds\\arkbrick.wav"),
+	fartSound(L"Sounds\\fart.wav"),
 	paddle(Vec2(400.0f, 500.0f), 50.0f, 15.0f)
 {
 
@@ -71,6 +73,8 @@ void Game::Go()
 void Game::UpdateModel(const float dt)
 {
 
+	if (gameOver) return;
+
 	ball.Update(dt);
 	paddle.Update(wnd.kbd, dt);
 	paddle.DoWallCollision(walls);
@@ -107,9 +111,16 @@ void Game::UpdateModel(const float dt)
 
 	if (paddle.DoBallCollision(ball)) soundPad.Play();
 
-	if (ball.DoWallCollision(walls)) {
+	const int wallCollideResult = ball.DoWallCollision(walls);
+
+	if (wallCollideResult == 1) {
 		paddle.ResetCooldown();
 		soundPad.Play();
+	}
+	else if (wallCollideResult == 2)
+	{
+		gameOver = true;
+		fartSound.Play();
 	}
 }
 
@@ -121,4 +132,9 @@ void Game::ComposeFrame()
 		brick.Draw(gfx);
 	}
 	paddle.Draw(gfx);
+
+	if (gameOver)
+	{
+		SpriteCodex::DrawGameOver(walls.GetCenter(), gfx);
+	}
 }

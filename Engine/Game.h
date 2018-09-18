@@ -54,6 +54,7 @@ private:
 	FrameTimer ft;
 	Sound soundPad;
 	Sound brickSound;
+	Sound fartSound;
 	Paddle paddle;
 	static constexpr float brickWidth = 40.0f;
 	static constexpr float brickHeight = 24.0f;
@@ -61,5 +62,6 @@ private:
 	static constexpr int nBricksDown = 4;
 	static constexpr int nBricks = nBricksAcross * nBricksDown;
 	Brick bricks[nBricks];
+	bool gameOver = false;
 	/********************************/
 };
