@@ -21,8 +21,9 @@ private:
 	static constexpr float wingWidth = 18.0f;
 	const float halfWidth;
 	const float halfHeight;
+	static constexpr float fixedZoneHalfWidth = 15.0f;
 	Vec2 pos;
 	static constexpr float speed = 300.0f;
 	bool cooldown = false;
-	float exitXFactor = 0.045f;
+	static constexpr float exitXFactor = 0.045f;
 };
