@@ -16,14 +16,22 @@ public:
 	Rectf GetRect() const;
 	void ResetCooldown();
 private:
-	static constexpr Color color = Colors::White;
 	static constexpr Color wingColor = Colors::Red;
+	static constexpr Color color = Colors::White;
 	static constexpr float wingWidth = 18.0f;
+	static constexpr float speed = 300.0f;
+
+
+	static constexpr float maximumExitRatio = 2.6f;
+	static constexpr float fixedZoneWidthRatio = 0.2f;
+
 	const float halfWidth;
 	const float halfHeight;
-	static constexpr float fixedZoneHalfWidth = 15.0f;
+
+	const float exitXFactor;
+	const float fixedZoneHalfWidth;
+	const float fixedZoneExitX;
+
 	Vec2 pos;
-	static constexpr float speed = 300.0f;
 	bool cooldown = false;
-	static constexpr float exitXFactor = 0.045f;
 };
