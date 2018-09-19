@@ -407,6 +407,11 @@ void Graphics::DrawIsoRightTriBR(int x, int y, int size, Color c)
 	}
 }
 
+Rectf Graphics::GetScreenRect()
+{
+	return Rectf(0.0f, ScreenWidth, 0.0f, ScreenHeight);
+}
+
 
 
 //////////////////////////////////////////////////
