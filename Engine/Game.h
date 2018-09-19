@@ -70,5 +70,6 @@ private:
 	static constexpr Color brickColors[4] = { { 230,0,0 },{ 0,230,0 },{ 0,0,230 },{ 0,230,230 } };
 	Brick bricks[nBricks];
 	bool gameOver = false;
+	bool isStarted = false;
 	/********************************/
 };

@@ -17,7 +17,7 @@ public:
 private:
 	Rectf rect;
 	bool isDestroyed = false;
-	static constexpr float padding = 1.0f;
+	static constexpr float padding = 0.5f;
 	static constexpr float bevelSize = 3.0f;
 	Beveler beveler;
 };

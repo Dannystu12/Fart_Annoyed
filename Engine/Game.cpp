@@ -28,7 +28,7 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	ball(Vec2(300.0f + 24.0f, 300.0f), Vec2(-1.0f, -1.0f)),
+	ball(Graphics::GetScreenRect().GetCenter(), Vec2(-0.5f, -1.0f)),
 	walls(Rectf::FromCenter(Graphics::GetScreenRect().GetCenter(), fieldWidth / 2.0f, fieldHeight / 2.0f), 
 		wallThickness, wallColor),
 	soundPad(L"Sounds\\arkpad.wav"),
@@ -75,6 +75,17 @@ void Game::UpdateModel(const float dt)
 {
 
 	if (gameOver) return;
+	if (!isStarted)
+	{
+		if (wnd.kbd.KeyIsPressed(VK_RETURN))
+		{
+			isStarted = true;
+		}
+		else
+		{
+			return;
+		}
+	}
 
 	ball.Update(dt);
 	paddle.Update(wnd.kbd, dt);
@@ -127,6 +138,13 @@ void Game::UpdateModel(const float dt)
 
 void Game::ComposeFrame()
 {
+
+	if (!isStarted)
+	{
+		SpriteCodex::DrawTitle(walls.GetInnerBounds().GetCenter(), gfx);
+		return;
+	}
+
 	walls.Draw(gfx);
 	ball.Draw(gfx);
 	for (const Brick& brick : bricks)
