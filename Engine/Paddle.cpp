@@ -30,21 +30,16 @@ bool Paddle::DoBallCollision(Ball & ball)
 		{
 			Vec2 dir;
 			const float xDifference = ball.GetPosition().x - pos.x;
-			
+			//modifier  to ensure ball keeps consistent x movement
+			int dirModifier = ball.GetVelocity().x > 0 ? 1 : -1;
+
 			if (std::abs(xDifference) < fixedZoneHalfWidth)
 			{
-				if (xDifference < 0.0f)
-				{
-					dir = Vec2(-fixedZoneExitX, -1.0f);
-				}
-				else
-				{
-					dir = Vec2(fixedZoneExitX, -1.0f);
-				}
+				dir = Vec2(dirModifier * fixedZoneExitX, -1.0f);
 			}
 			else
 			{
-				dir = Vec2(xDifference * exitXFactor, -1.0f);
+				dir = Vec2(std::abs(xDifference) * exitXFactor * dirModifier, -1.0f);
 			}
 
 			ball.SetDirection(dir);
