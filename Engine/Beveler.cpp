@@ -61,8 +61,8 @@ void Beveler::DrawBeveledBrick( const Rectf & rect,int bevelSize,Graphics & gfx 
 
 void Beveler::DrawBevelFrame( const Rectf& rect,int bevelSize,Graphics & gfx ) const
 {
-	DrawOuterBevel( rect,bevelSize,gfx );
-	DrawInnerBevel( rect.GetExpanded( -float( bevelSize ) ),bevelSize,gfx );
+	DrawOuterBevel( rect.GetExpanded(bevelSize),bevelSize,gfx );
+	DrawInnerBevel( rect,bevelSize,gfx );
 }
 
 Color Beveler::GetBaseColor() const
