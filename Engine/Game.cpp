@@ -36,13 +36,13 @@ Game::Game(MainWindow& wnd)
 	paddle(Vec2(400.0f, 500.0f), 50.0f, 15.0f)
 {
 
-	const Color colors[4] = {Colors::Red, Colors::Green, Colors::Blue, Colors::Cyan};
+	
 
 	const Vec2 topLeft(40.0f, 40.0f);
 
 	for (int y = 0; y < nBricksDown; y++)
 	{
-		const Color c = colors[y];
+		const Color c = brickColors[y];
 		for (int x = 0; x < nBricksAcross; x++)
 		{
 			const int currentIndex = y * nBricksAcross + x;

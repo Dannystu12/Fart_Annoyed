@@ -4,7 +4,7 @@
 Brick::Brick(const Rectf & rect, Color c)
 	:
 	rect(rect),
-	c(c)
+	beveler(c)
 {
 }
 
@@ -12,7 +12,7 @@ void Brick::Draw(Graphics& gfx) const
 {
 	if (!isDestroyed)
 	{
-		gfx.DrawRect(rect.GetExpanded(-padding), c);
+		beveler.DrawBeveledBrick(rect.GetExpanded(-padding), bevelSize, gfx);
 	}
 }
 

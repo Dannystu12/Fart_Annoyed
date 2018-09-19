@@ -5,7 +5,7 @@ Beveler::Beveler( Color baseColor )
 	SetBaseColor( baseColor );
 }
 
-void Beveler::DrawOuterBevel( const RectF& rect,int size,Graphics & gfx ) const
+void Beveler::DrawOuterBevel( const Rectf& rect,int size,Graphics & gfx ) const
 {
 	const int left = int( rect.left );
 	const int right = int( rect.right );
@@ -29,7 +29,7 @@ void Beveler::DrawOuterBevel( const RectF& rect,int size,Graphics & gfx ) const
 	gfx.DrawIsoRightTriBL( right - size,bottom - size,size,bottomColor );
 }
 
-void Beveler::DrawInnerBevel( const RectF & rect,int size,Graphics & gfx ) const
+void Beveler::DrawInnerBevel( const Rectf & rect,int size,Graphics & gfx ) const
 {
 	const int left = int( rect.left );
 	const int right = int( rect.right );
@@ -53,13 +53,13 @@ void Beveler::DrawInnerBevel( const RectF & rect,int size,Graphics & gfx ) const
 	gfx.DrawIsoRightTriBL( right - size,bottom - size,size,topColor );
 }
 
-void Beveler::DrawBeveledBrick( const RectF & rect,int bevelSize,Graphics & gfx ) const
+void Beveler::DrawBeveledBrick( const Rectf & rect,int bevelSize,Graphics & gfx ) const
 {
 	DrawOuterBevel( rect,bevelSize,gfx );
 	gfx.DrawRect( rect.GetExpanded( -float( bevelSize ) ),baseColor );
 }
 
-void Beveler::DrawBevelFrame( const RectF& rect,int bevelSize,Graphics & gfx ) const
+void Beveler::DrawBevelFrame( const Rectf& rect,int bevelSize,Graphics & gfx ) const
 {
 	DrawOuterBevel( rect,bevelSize,gfx );
 	DrawInnerBevel( rect.GetExpanded( -float( bevelSize ) ),bevelSize,gfx );

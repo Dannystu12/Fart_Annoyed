@@ -61,6 +61,7 @@ private:
 	static constexpr int nBricksAcross = 18;
 	static constexpr int nBricksDown = 4;
 	static constexpr int nBricks = nBricksAcross * nBricksDown;
+	static constexpr Color brickColors[4] = { { 230,0,0 },{ 0,230,0 },{ 0,0,230 },{ 0,230,230 } };
 	Brick bricks[nBricks];
 	bool gameOver = false;
 	/********************************/
