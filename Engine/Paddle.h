@@ -16,10 +16,10 @@ public:
 	Rectf GetRect() const;
 	void ResetCooldown();
 private:
-	static constexpr Color wingColor = Colors::Red;
-	static constexpr Color color = Colors::White;
-	static constexpr float wingWidth = 18.0f;
-	static constexpr float speed = 300.0f;
+	static constexpr Color wingColor = { 210, 255, 210 };
+	static constexpr Color color = {200, 220, 200};
+	static constexpr float wingWidth = 6.0f;
+	static constexpr float speed = 360.0f;
 
 
 	static constexpr float maximumExitRatio = 2.6f;

@@ -29,7 +29,8 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	ball(Vec2(300.0f + 24.0f, 300.0f), Vec2(-1.0f, -1.0f)),
-	walls(Graphics::GetScreenRect().GetExpanded(-wallThickness * 2), wallThickness, wallColor),
+	walls(Rectf::FromCenter(Graphics::GetScreenRect().GetCenter(), fieldWidth / 2.0f, fieldHeight / 2.0f), 
+		wallThickness, wallColor),
 	soundPad(L"Sounds\\arkpad.wav"),
 	brickSound(L"Sounds\\arkbrick.wav"),
 	fartSound(L"Sounds\\fart.wav"),
@@ -38,7 +39,7 @@ Game::Game(MainWindow& wnd)
 
 	
 
-	const Vec2 topLeft(40.0f, 40.0f);
+	const Vec2 topLeft(walls.GetInnerBounds().left, topSpace);
 
 	for (int y = 0; y < nBricksDown; y++)
 	{
