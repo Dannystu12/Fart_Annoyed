@@ -7,7 +7,8 @@ Paddle::Paddle(const Vec2 & pos, float halfWidth, float halfHeight)
 	halfHeight(halfHeight),
 	exitXFactor(maximumExitRatio / halfWidth),
 	fixedZoneHalfWidth(halfWidth * fixedZoneWidthRatio),
-	fixedZoneExitX(fixedZoneHalfWidth * exitXFactor)
+	fixedZoneExitX(fixedZoneHalfWidth * exitXFactor),
+	startingPos(pos)
 {
 }
 
@@ -87,4 +88,9 @@ Rectf Paddle::GetRect() const
 void Paddle::ResetCooldown()
 {
 	cooldown = false;
+}
+
+void Paddle::Reset()
+{
+	pos = startingPos;
 }

@@ -3,9 +3,11 @@
 
 Ball::Ball(const Vec2 & pos, const Vec2 & dir)
 	:
-	pos(pos)
+	pos(pos),
+	startingPos(pos)
 {
 	SetDirection(dir);
+	startingVel = vel;
 }
 
 void Ball::Draw(Graphics & gfx) const
@@ -78,4 +80,10 @@ Vec2 Ball::GetPosition() const
 void Ball::SetDirection(const Vec2& dir)
 {
 	vel = dir.GetNormalized() * speed;
+}
+
+void Ball::Reset()
+{
+	pos = startingPos;
+	vel = startingVel;
 }

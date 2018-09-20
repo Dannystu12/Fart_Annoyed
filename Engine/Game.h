@@ -30,6 +30,7 @@
 #include "Brick.h"
 #include "Paddle.h"
 #include "Walls.h"
+#include "LifeCounter.h"
 
 
 class Game
@@ -79,5 +80,6 @@ private:
 	Brick bricks[nBricks];
 	// 0 = not started, 1 = playing, 2 = game over, 3 = readyWait
 	int gameState = 0;
+	LifeCounter lifeCounter;
 	/********************************/
 };

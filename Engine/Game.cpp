@@ -35,6 +35,7 @@ Game::Game(MainWindow& wnd)
 	brickSound(L"Sounds\\arkbrick.wav"),
 	fartSound(L"Sounds\\fart.wav"),
 	readySound(L"Sounds\\ready.wav"),
+	lifeCounter(3, Vec2(30.0f, 30.0f)),
 	paddle(Vec2(400.0f, 500.0f), 50.0f, 15.0f)
 {
 
@@ -157,8 +158,17 @@ void Game::UpdateGamePlaying(float dt)
 	}
 	else if (wallCollideResult == 2)
 	{
-		gameState = 2;
 		fartSound.Play();
+		if (lifeCounter.ConsumeLife())
+		{
+			ball.Reset();
+			paddle.Reset();
+			StartRound();
+		}
+		else
+		{
+			gameState = 2;
+		}
 	}
 }
 
@@ -171,6 +181,7 @@ void Game::DrawGame()
 		brick.Draw(gfx);
 	}
 	paddle.Draw(gfx);
+	lifeCounter.Draw(gfx);
 }
 
 void Game::ComposeFrame()

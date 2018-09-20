@@ -15,8 +15,11 @@ public:
 	Vec2 GetVelocity() const;
 	Vec2 GetPosition() const;
 	void SetDirection(const Vec2& dir);
+	void Reset();
 private:
 	Vec2 pos;
+	const Vec2 startingPos;
+	Vec2 startingVel;
 	Vec2 vel;
 	static constexpr float radius = 7.0f;
 	float speed = 400.0f;

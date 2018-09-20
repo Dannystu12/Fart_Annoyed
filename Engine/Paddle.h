@@ -15,6 +15,7 @@ public:
 	void Update(const Keyboard& kbd, float dt);
 	Rectf GetRect() const;
 	void ResetCooldown();
+	void Reset();
 private:
 	static constexpr Color wingColor = { 210, 255, 210 };
 	static constexpr Color color = {200, 220, 200};
@@ -33,5 +34,6 @@ private:
 	const float fixedZoneExitX;
 
 	Vec2 pos;
+	const Vec2 startingPos;
 	bool cooldown = false;
 };
