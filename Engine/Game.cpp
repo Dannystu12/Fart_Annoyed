@@ -73,20 +73,27 @@ void Game::Go()
 
 void Game::UpdateModel(const float dt)
 {
-
-	if (gameOver) return;
-	if (!isStarted)
+	switch (gameState)
 	{
-		if (wnd.kbd.KeyIsPressed(VK_RETURN))
-		{
-			isStarted = true;
-		}
-		else
-		{
-			return;
-		}
+	case 0:
+		UpdateGameNotStarted();
+		break;
+	case 1:
+		UpdateGamePlaying(dt);
+		break;
 	}
+}
 
+void Game::UpdateGameNotStarted()
+{
+	if (wnd.kbd.KeyIsPressed(VK_RETURN))
+	{
+		gameState = 1;
+	}
+}
+
+void Game::UpdateGamePlaying(float dt)
+{
 	ball.Update(dt);
 	paddle.Update(wnd.kbd, dt);
 	paddle.DoWallCollision(walls.GetInnerBounds());
@@ -113,7 +120,7 @@ void Game::UpdateModel(const float dt)
 			collisionHasHappened = true;
 		}
 	}
-	
+
 	if (collisionHasHappened)
 	{
 		paddle.ResetCooldown();
@@ -131,20 +138,13 @@ void Game::UpdateModel(const float dt)
 	}
 	else if (wallCollideResult == 2)
 	{
-		gameOver = true;
+		gameState = 2;
 		fartSound.Play();
 	}
 }
 
-void Game::ComposeFrame()
+void Game::DrawGame()
 {
-
-	if (!isStarted)
-	{
-		SpriteCodex::DrawTitle(walls.GetInnerBounds().GetCenter(), gfx);
-		return;
-	}
-
 	walls.Draw(gfx);
 	ball.Draw(gfx);
 	for (const Brick& brick : bricks)
@@ -152,9 +152,21 @@ void Game::ComposeFrame()
 		brick.Draw(gfx);
 	}
 	paddle.Draw(gfx);
+}
 
-	if (gameOver)
+void Game::ComposeFrame()
+{
+	switch (gameState)
 	{
+	case 0:
+		SpriteCodex::DrawTitle(walls.GetInnerBounds().GetCenter(), gfx);
+		break;
+	case 1:
+		DrawGame();
+		break;
+	case 2:
+		DrawGame();
 		SpriteCodex::DrawGameOver(walls.GetInnerBounds().GetCenter(), gfx);
+		break;
 	}
 }

@@ -44,6 +44,9 @@ private:
 	void UpdateModel(float dt);
 	/********************************/
 	/*  User Functions              */
+	void UpdateGameNotStarted();
+	void UpdateGamePlaying(float dt);
+	void DrawGame();
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -69,7 +72,7 @@ private:
 	static constexpr float fieldHeight = float(Graphics::ScreenHeight) - wallThickness * 2.0f;
 	static constexpr Color brickColors[4] = { { 230,0,0 },{ 0,230,0 },{ 0,0,230 },{ 0,230,230 } };
 	Brick bricks[nBricks];
-	bool gameOver = false;
-	bool isStarted = false;
+	// 0 = not started, 1 = playing, 2 = game over
+	int gameState = 0;
 	/********************************/
 };
