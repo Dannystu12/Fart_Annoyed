@@ -35,12 +35,14 @@ Game::Game(MainWindow& wnd)
 	brickSound(L"Sounds\\arkbrick.wav"),
 	fartSound(L"Sounds\\fart.wav"),
 	readySound(L"Sounds\\ready.wav"),
-	lifeCounter(3, Vec2(30.0f, 30.0f)),
+	lifeCounter(startingLives, Vec2(30.0f, 30.0f)),
 	paddle(Vec2(400.0f, 550.0f), 32.0f, 6.0f)
 {
+	GenerateBricks();
+}
 
-	
-
+void Game::GenerateBricks()
+{
 	const Vec2 topLeft(walls.GetInnerBounds().left, topSpace);
 
 	for (int y = 0; y < nBricksDown; y++)
@@ -51,11 +53,10 @@ Game::Game(MainWindow& wnd)
 			const int currentIndex = y * nBricksAcross + x;
 			const Vec2 brickTopLeft = topLeft + Vec2(x * brickWidth, y*brickHeight);
 			bricks[currentIndex] = Brick(
-				Rectf(brickTopLeft, brickWidth, brickHeight), 
+				Rectf(brickTopLeft, brickWidth, brickHeight),
 				c);
 		}
 	}
-
 }
 
 void Game::Go()
@@ -82,6 +83,9 @@ void Game::UpdateModel(const float dt)
 		break;
 	case 1:
 		UpdateGamePlaying(dt);
+		break;
+	case 2:
+		ProcessGameOver();
 		break;
 	case 3:
 		ProcessReadyWait(dt);
@@ -110,6 +114,23 @@ void Game::ProcessReadyWait(float dt)
 	{
 		gameState = 1;
 	}
+}
+
+void Game::ProcessGameOver()
+{
+	if (wnd.kbd.KeyIsPressed(VK_RETURN))
+	{
+		ResetGame();
+	}
+}
+
+void Game::ResetGame()
+{
+	ball.Reset();
+	paddle.Reset();
+	lifeCounter.SetLives(startingLives);
+	GenerateBricks();
+	StartRound();
 }
 
 void Game::UpdateGamePlaying(float dt)

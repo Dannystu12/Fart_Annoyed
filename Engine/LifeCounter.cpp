@@ -25,3 +25,8 @@ void LifeCounter::Draw(Graphics & gfx) const
 		SpriteCodex::DrawPoo(pos + offset * float(i), gfx);
 	}
 }
+
+void LifeCounter::SetLives(int newLives)
+{
+	lives = newLives;
+}

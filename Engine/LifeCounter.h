@@ -9,6 +9,7 @@ public:
 	LifeCounter(int lives, const Vec2& pos);
 	bool ConsumeLife();
 	void Draw(Graphics& gfx) const;
+	void SetLives(int newLives);
 private:
 	static constexpr float spacing = 28.0f;
 	int lives;

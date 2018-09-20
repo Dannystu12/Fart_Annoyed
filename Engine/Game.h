@@ -37,6 +37,7 @@ class Game
 {
 public:
 	Game( class MainWindow& wnd );
+	void GenerateBricks();
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
 	void Go();
@@ -50,6 +51,8 @@ private:
 	void DrawGame();
 	void StartRound();
 	void ProcessReadyWait(float dt);
+	void ProcessGameOver();
+	void ResetGame();
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -77,6 +80,7 @@ private:
 	static constexpr float fieldHeight = float(Graphics::ScreenHeight) - wallThickness * 2.0f;
 	static constexpr Color brickColors[4] = { { 230,0,0 },{ 0,230,0 },{ 0,0,230 },{ 0,230,230 } };
 	static constexpr float readyWaitTime = 4.3f;
+	static constexpr int startingLives = 3;
 	Brick bricks[nBricks];
 	// 0 = not started, 1 = playing, 2 = game over, 3 = readyWait
 	int gameState = 0;
