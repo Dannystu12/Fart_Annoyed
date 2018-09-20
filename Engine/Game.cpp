@@ -36,7 +36,7 @@ Game::Game(MainWindow& wnd)
 	fartSound(L"Sounds\\fart.wav"),
 	readySound(L"Sounds\\ready.wav"),
 	lifeCounter(3, Vec2(30.0f, 30.0f)),
-	paddle(Vec2(400.0f, 500.0f), 50.0f, 15.0f)
+	paddle(Vec2(400.0f, 550.0f), 32.0f, 6.0f)
 {
 
 	
