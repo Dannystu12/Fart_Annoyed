@@ -135,6 +135,7 @@ void Game::ResetGame()
 
 void Game::UpdateGamePlaying(float dt)
 {
+
 	ball.Update(dt);
 	paddle.Update(wnd.kbd, dt);
 	paddle.DoWallCollision(walls.GetInnerBounds());
@@ -142,10 +143,13 @@ void Game::UpdateGamePlaying(float dt)
 	bool collisionHasHappened = false;
 	float curColDistSq;
 	int colIndex;
+	bool allBricksDestroyed = true;
+
 
 	for (int i = 0; i < nBricks; i++)
 	{
 		const Brick& brick = bricks[i];
+		if (!brick.IsDestroyed()) allBricksDestroyed = false;
 		if (!brick.CheckBallCollision(ball)) continue;
 		const float newColDistSq = (ball.GetPosition() - brick.GetCenter()).GetLengthSq();
 
@@ -160,6 +164,12 @@ void Game::UpdateGamePlaying(float dt)
 			curColDistSq = newColDistSq;
 			collisionHasHappened = true;
 		}
+	}
+
+	if (allBricksDestroyed)
+	{
+		ResetGame();
+		return;
 	}
 
 	if (collisionHasHappened)

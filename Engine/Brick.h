@@ -14,6 +14,7 @@ public:
 	bool CheckBallCollision(const Ball& ball) const;
 	void ExecuteBallCollision(Ball& ball);
 	Vec2 GetCenter() const;
+	bool IsDestroyed() const;
 private:
 	Rectf rect;
 	bool isDestroyed = false;
