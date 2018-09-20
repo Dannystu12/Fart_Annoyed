@@ -12,7 +12,7 @@ void Brick::Draw(Graphics& gfx) const
 {
 	if (!isDestroyed)
 	{
-		beveler.DrawBeveledBrick(rect.GetExpanded(-padding), bevelSize, gfx);
+		beveler.DrawBeveledBrick(rect.GetExpanded(-padding), int(bevelSize), gfx);
 	}
 }
 
