@@ -47,6 +47,8 @@ private:
 	void UpdateGameNotStarted();
 	void UpdateGamePlaying(float dt);
 	void DrawGame();
+	void StartRound();
+	void ProcessReadyWait(float dt);
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -59,7 +61,9 @@ private:
 	Sound soundPad;
 	Sound brickSound;
 	Sound fartSound;
+	Sound readySound;
 	Paddle paddle;
+	float curWaitTime;
 	static constexpr float wallThickness = 12.0f;
 	static constexpr Color wallColor = { 20,60,200 };
 	static constexpr float brickWidth = 40.0f;
@@ -71,8 +75,9 @@ private:
 	static constexpr float fieldWidth = float(nBricksAcross) * brickWidth;
 	static constexpr float fieldHeight = float(Graphics::ScreenHeight) - wallThickness * 2.0f;
 	static constexpr Color brickColors[4] = { { 230,0,0 },{ 0,230,0 },{ 0,0,230 },{ 0,230,230 } };
+	static constexpr float readyWaitTime = 4.3f;
 	Brick bricks[nBricks];
-	// 0 = not started, 1 = playing, 2 = game over
+	// 0 = not started, 1 = playing, 2 = game over, 3 = readyWait
 	int gameState = 0;
 	/********************************/
 };

@@ -29,11 +29,12 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	ball(Graphics::GetScreenRect().GetCenter(), Vec2(-0.5f, -1.0f)),
-	walls(Rectf::FromCenter(Graphics::GetScreenRect().GetCenter(), fieldWidth / 2.0f, fieldHeight / 2.0f), 
+	walls(Rectf::FromCenter(Graphics::GetScreenRect().GetCenter(), fieldWidth / 2.0f, fieldHeight / 2.0f),
 		wallThickness, wallColor),
 	soundPad(L"Sounds\\arkpad.wav"),
 	brickSound(L"Sounds\\arkbrick.wav"),
 	fartSound(L"Sounds\\fart.wav"),
+	readySound(L"Sounds\\ready.wav"),
 	paddle(Vec2(400.0f, 500.0f), 50.0f, 15.0f)
 {
 
@@ -81,12 +82,30 @@ void Game::UpdateModel(const float dt)
 	case 1:
 		UpdateGamePlaying(dt);
 		break;
+	case 3:
+		ProcessReadyWait(dt);
+		break;
 	}
 }
 
 void Game::UpdateGameNotStarted()
 {
 	if (wnd.kbd.KeyIsPressed(VK_RETURN))
+	{
+		StartRound();
+	}
+}
+
+void Game::StartRound()
+{
+	curWaitTime = 0.0f;
+	readySound.Play();
+	gameState = 3;
+}
+
+void Game::ProcessReadyWait(float dt)
+{
+	if ((curWaitTime += dt) >= readyWaitTime)
 	{
 		gameState = 1;
 	}
@@ -167,6 +186,10 @@ void Game::ComposeFrame()
 	case 2:
 		DrawGame();
 		SpriteCodex::DrawGameOver(walls.GetInnerBounds().GetCenter(), gfx);
+		break;
+	case 3:
+		DrawGame();
+		SpriteCodex::DrawReady(walls.GetInnerBounds().GetCenter(), gfx);
 		break;
 	}
 }
