@@ -36,6 +36,14 @@
 class Game
 {
 public:
+	enum class GameState
+	{
+		NotStarted,
+		Playing,
+		GameOver,
+		ReadyWait
+	};
+public:
 	Game( class MainWindow& wnd );
 	void GenerateBricks();
 	Game( const Game& ) = delete;
@@ -82,8 +90,7 @@ private:
 	static constexpr float readyWaitTime = 4.3f;
 	static constexpr int startingLives = 3;
 	Brick bricks[nBricks];
-	// 0 = not started, 1 = playing, 2 = game over, 3 = readyWait
-	int gameState = 0;
+	GameState gameState = GameState::NotStarted;
 	LifeCounter lifeCounter;
 	/********************************/
 };

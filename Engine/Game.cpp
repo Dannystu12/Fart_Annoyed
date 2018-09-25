@@ -78,16 +78,16 @@ void Game::UpdateModel(const float dt)
 {
 	switch (gameState)
 	{
-	case 0:
+	case GameState::NotStarted:
 		UpdateGameNotStarted();
 		break;
-	case 1:
+	case GameState::Playing:
 		UpdateGamePlaying(dt);
 		break;
-	case 2:
+	case GameState::GameOver:
 		ProcessGameOver();
 		break;
-	case 3:
+	case GameState::ReadyWait:
 		ProcessReadyWait(dt);
 		break;
 	}
@@ -105,14 +105,14 @@ void Game::StartRound()
 {
 	curWaitTime = 0.0f;
 	readySound.Play();
-	gameState = 3;
+	gameState = GameState::ReadyWait;
 }
 
 void Game::ProcessReadyWait(float dt)
 {
 	if ((curWaitTime += dt) >= readyWaitTime)
 	{
-		gameState = 1;
+		gameState = GameState::Playing;
 	}
 }
 
@@ -201,7 +201,7 @@ void Game::UpdateGamePlaying(float dt)
 		}
 		else
 		{
-			gameState = 2;
+			gameState = GameState::GameOver;
 		}
 	}
 }
@@ -222,17 +222,17 @@ void Game::ComposeFrame()
 {
 	switch (gameState)
 	{
-	case 0:
+	case GameState::NotStarted:
 		SpriteCodex::DrawTitle(walls.GetInnerBounds().GetCenter(), gfx);
 		break;
-	case 1:
+	case GameState::Playing:
 		DrawGame();
 		break;
-	case 2:
+	case GameState::GameOver:
 		DrawGame();
 		SpriteCodex::DrawGameOver(walls.GetInnerBounds().GetCenter(), gfx);
 		break;
-	case 3:
+	case GameState::ReadyWait:
 		DrawGame();
 		SpriteCodex::DrawReady(walls.GetInnerBounds().GetCenter(), gfx);
 		break;
