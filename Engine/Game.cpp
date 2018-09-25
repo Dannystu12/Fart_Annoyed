@@ -181,17 +181,19 @@ void Game::UpdateGamePlaying(float dt)
 
 	if (paddle.DoBallCollision(ball)) soundPad.Play();
 
-	const int wallCollideResult = ball.DoWallCollision(walls.GetInnerBounds());
+	const Ball::WallCollisionType wallCollideResult = ball.DoWallCollision(walls.GetInnerBounds());
 
-	if (wallCollideResult == 1) {
+	switch (wallCollideResult)
+	{
+	case Ball::WallCollisionType::Side:
+	case Ball::WallCollisionType::Top:
 		if (!paddle.GetRect().IsOverlapping(ball.GetRect()))
 		{
 			paddle.ResetCooldown();
 		}
 		soundPad.Play();
-	}
-	else if (wallCollideResult == 2)
-	{
+		break;
+	case Ball::WallCollisionType::Bottom:
 		fartSound.Play();
 		if (lifeCounter.ConsumeLife())
 		{
@@ -203,6 +205,7 @@ void Game::UpdateGamePlaying(float dt)
 		{
 			gameState = GameState::GameOver;
 		}
+		break;
 	}
 }
 
